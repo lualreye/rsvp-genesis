@@ -25,7 +25,7 @@ defineProps({
   display: flex;
   align-items: center;
   justify-content: center;
-  background: white;
+  /* background: rgba(255, 255, 255, 0.8); */
   z-index: 1000;
 }
 
@@ -33,8 +33,8 @@ defineProps({
   position: relative;
   width: 100px;
   height: 100px;
-  background: transparent;
-  border: 5px solid green;
+  background-color: green;
+  /* border: 5px solid green; */
   transform: rotate(-45deg);
   animation: expand 2s forwards;
 }
@@ -44,8 +44,7 @@ defineProps({
   position: absolute;
   width: 100px;
   height: 100px;
-  background: transparent;
-  border: 5px solid green;
+  background-color: green;
   border-radius: 50%;
 }
 
@@ -60,7 +59,13 @@ defineProps({
 }
 
 @keyframes expand {
-  0% { transform: rotate(-45deg) scale(1); }
-  100% { transform: rotate(-45deg) scale(10); opacity: 0; }
+  0% {
+    transform: rotate(-45deg) scale(1);
+    opacity: 1
+  }
+  100% {
+    transform: rotate(-45deg) scale(50);
+    opacity: 0;
+  }
 }
 </style>
