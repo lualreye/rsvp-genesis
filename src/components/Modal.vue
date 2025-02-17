@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
+import useConfirmationStore from '../store/confirmation';
 
 
 const emit = defineEmits(['close-modal', 'confirmation'])
@@ -13,6 +14,8 @@ const props = defineProps({
     required: true
   }
 })
+
+const confirmationStore = useConfirmationStore()
 
 const buttonText = computed(() => {
   return props.modalType === 'confirmar' ? 'Asistiré' : 'No asistiré'
