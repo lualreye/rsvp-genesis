@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import Loader from './components/Loader.vue';
+import Modal from './components/Modal.vue'
 
 const isLoading = ref(false)
 const video = ref<HTMLVideoElement | null>(null);
@@ -9,6 +10,8 @@ const invitationIsOpen = ref(false)
 const name = 'Luis'
 const lastname = 'Reyes'
 const admission = 2 
+const isModalOpen = ref(false)
+const modalType = ref('confirmar')
 
 const onVideoEnd = () => {
   if (video.value) {
@@ -29,12 +32,13 @@ function playMusic() {
   }
 }
 
-function confirm() {
-
+function openCloseModal(): void {
+  isModalOpen.value = !isModalOpen.value
 }
 
-function decline() {
-
+function setModal(type: string): void {
+  modalType.value = type
+  openCloseModal()
 }
 </script>
 
@@ -74,10 +78,15 @@ function decline() {
         admisión/es
       </p>
       <div class="action-buttons">
-        <button @click="confirm" class="button">
+        <button
+          @click="setModal('confirmar')"
+          class="button">
           Confirmar
         </button>
-        <button @click="decline" class="button-2">
+        <button
+          @click="setModal('declinar')"
+          @close-modal="openCloseModal"
+          class="button-2">
           Declinar
         </button>
       </div>
@@ -90,6 +99,12 @@ function decline() {
         <source src="./assets/cancion.mp4" type="video/mp4" />
       </video>
     </div>
+
+    <!-- MODAL -->
+     <Modal
+      :isOpen="isModalOpen"
+      :modalType="modalType"
+      @close-modal="openCloseModal" />
   </div>
 </template>
 
