@@ -42,10 +42,14 @@ function setModal(type: string): void {
   openCloseModal()
 }
 
-onMounted(() => {
-  const id = route.params.id
-
-  confirmationStore.postData(id as string)
+onMounted(async () => {
+  try {
+    const id = route.params.id
+  
+    await confirmationStore.postData(id as string)
+  } catch (error) {
+    console.error('error', error)
+  }
 })
 </script>
 
