@@ -97,7 +97,7 @@ onMounted(async () => {
 
     <!-- VIDEO INVITATION -->
     <div v-if="!isLoading && invitationIsOpen" class="video-container">
-        <video ref="video" autoplay muted playsinline preload="auto" @ended="onVideoEnd" class="video">
+        <video ref="video" muted playsinline autoplay preload="auto" @ended="onVideoEnd" class="video">
           <source src="../../public/invitation.mp4" type="video/mp4" />
           Tu navegador no soporta la etiqueta de video.
         </video>
@@ -137,7 +137,7 @@ onMounted(async () => {
 
     <!-- VIDEO SONG -->
     <div v-if="invitationIsOpen" class="hidden">
-      <video ref="backgroundVideo" id="background-video" autoplay loop playsinline preload="auto">
+      <video ref="backgroundVideo" id="background-video" loop playsinline preload="auto">
         <source src="../../public/cancion.mp4" type="video/mp4" />
       </video>
     </div>
