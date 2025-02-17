@@ -11,9 +11,6 @@ const isLoading = ref(false)
 const video = ref<HTMLVideoElement | null>(null);
 const backgroundVideo = ref<HTMLVideoElement | null>(null);
 const invitationIsOpen = ref(false)
-const name = 'Luis'
-const lastname = 'Reyes'
-const admission = 2 
 const isModalOpen = ref(false)
 const modalType = ref('confirmar')
 
@@ -53,10 +50,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="app-container">
+  <div v-if="confirmationStore.user" class="app-container">
     <div v-if="!invitationIsOpen" class="invitation-title">
       <h2 class="name">
-        {{ name }} {{ lastname }}
+        {{ confirmationStore.user.nombre }} {{ confirmationStore.user.apellido }}
       </h2>
 
       <h1 class="title">
@@ -78,12 +75,12 @@ onMounted(() => {
       </video>
 
       <h2 class="name">
-        {{ name }} {{ lastname }}
+        {{ confirmationStore.user.nombre }} {{ confirmationStore.user.apellido }}
       </h2>
       <p class="name">
         Tienes
         <span class="admission">
-          {{ admission }}
+          {{ confirmationStore.user.admisiones }}
         </span>
         admisión/es
       </p>
@@ -144,6 +141,7 @@ onMounted(() => {
   color: #2A1F2D;
   margin: 0;
   font-size: 2.5rem;
+  text-transform: capitalize;
 }
 
 .title {

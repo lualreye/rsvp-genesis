@@ -23,9 +23,15 @@ const buttonText = computed(() => {
 
 function confirmation(): void {
   if (props.modalType === 'confirmar') {
-    console.log('esta confirmando')
+    confirmationStore.patchData(
+      confirmationStore.user?.attendant_id as string,
+      true
+    )
   } else {
-    console.log('no esta confirmando')
+    confirmationStore.patchData(
+      confirmationStore.user?.attendant_id as string,
+      false
+    )
   }
   close()
 }
