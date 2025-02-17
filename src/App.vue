@@ -4,6 +4,8 @@ import Loader from './components/Loader.vue';
 
 const isLoading = ref(false)
 const video = ref<HTMLVideoElement | null>(null);
+const backgroundVideo = ref<HTMLVideoElement | null>(null);
+const invitationIsOpen = ref(false)
 
 const onVideoEnd = () => {
   if (video.value) {
@@ -12,7 +14,8 @@ const onVideoEnd = () => {
   }
 };
 
-onMounted(() => {
+function playMusic() {
+  invitationIsOpen.value = true
   isLoading.value = true
   setTimeout(
     () => isLoading.value = false,
@@ -21,20 +24,41 @@ onMounted(() => {
   if (video.value) {
     video.value.play();
   }
+}
+
+onMounted(() => {
 });
 
 </script>
 
 <template>
   <div class="app-container">
-    <Loader :isLoading="isLoading"></Loader>
-      
-    <div v-if="!isLoading" class="video-container">
+    <button v-if="!invitationIsOpen" @click="playMusic">
+      Ver invitacion
+    </button>
+    <Loader :isLoading="isLoading && invitationIsOpen"></Loader>
+  
+    <!-- VIDEO INVITATION -->
+    <div v-if="!isLoading && invitationIsOpen" class="video-container">
       <video autoplay muted playsinline @ended="onVideoEnd" class="video">
         <source src="./assets/invitation.mp4" type="video/mp4" />
         Tu navegador no soporta la etiqueta de video.
       </video>
     </div>
+  </div>
+
+  <!-- VIDEO SONG -->
+  <div
+    v-if="!isLoading && invitationIsOpen"
+    class="hidden">
+    <video
+      id="background-video"
+      autoplay
+      loop
+      playsinline
+      ref="backgroundVideo">
+      <source src="./assets/cancion.mp4" type="video/mp4">
+    </video>
   </div>
 </template>
 
@@ -61,6 +85,13 @@ onMounted(() => {
   -webkit-box-shadow: 4px 4px 8px -8px rgba(0,0,0,0.75);
   -moz-box-shadow: 4px 4px 8px -8px rgba(0,0,0,0.75);
   box-shadow: 4px 4px 8px -8px rgba(0,0,0,0.75);
+}
+
+.hidden {
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
 }
 
 @keyframes fadeIn {

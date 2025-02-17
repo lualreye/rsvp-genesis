@@ -33,7 +33,7 @@ defineProps({
   position: relative;
   width: 100px;
   height: 100px;
-  background-color: green;
+  background-color: #656c52;
   /* border: 5px solid green; */
   transform: rotate(-45deg);
   animation: expand 2s forwards;
@@ -44,7 +44,7 @@ defineProps({
   position: absolute;
   width: 100px;
   height: 100px;
-  background-color: green;
+  background-color: #656c52;
   border-radius: 50%;
 }
 
