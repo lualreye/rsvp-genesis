@@ -74,29 +74,37 @@ onMounted(() => {
         Tu navegador no soporta la etiqueta de video.
       </video>
 
-      <h2 class="name">
-        {{ confirmationStore.user.nombre }} {{ confirmationStore.user.apellido }}
+      <template v-if="!confirmationStore.user.asistencia.length">
+        <h2 class="name">
+          {{ confirmationStore.user.nombre }} {{ confirmationStore.user.apellido }}
+        </h2>
+        <p class="name">
+          Tienes
+          <span class="admission">
+            {{ confirmationStore.user.admisiones }}
+          </span>
+          admisión/es
+        </p>
+  
+        <div class="action-buttons">
+          <button
+            @click="setModal('confirmar')"
+            class="button">
+            Confirmar
+          </button>
+          <button
+            @click="setModal('declinar')"
+            @close-modal="openCloseModal"
+            class="button-2">
+            Declinar
+          </button>
+        </div>
+      </template>
+
+      <h2 v-else class="name">
+        Asistencia respondida
       </h2>
-      <p class="name">
-        Tienes
-        <span class="admission">
-          {{ confirmationStore.user.admisiones }}
-        </span>
-        admisión/es
-      </p>
-      <div class="action-buttons">
-        <button
-          @click="setModal('confirmar')"
-          class="button">
-          Confirmar
-        </button>
-        <button
-          @click="setModal('declinar')"
-          @close-modal="openCloseModal"
-          class="button-2">
-          Declinar
-        </button>
-      </div>
+
     </div>
 
     <!-- VIDEO SONG -->
