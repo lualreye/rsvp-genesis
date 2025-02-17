@@ -22,16 +22,30 @@ const onVideoEnd = () => {
 };
 
 function playMusic() {
-  invitationIsOpen.value = true
-  isLoading.value = true
-  setTimeout(
-    () => isLoading.value = false,
-    1500
-  )
-  if (video.value) {
-    video.value.play();
-  }
+  invitationIsOpen.value = true;
+  isLoading.value = true;
+
+  setTimeout(() => {
+    isLoading.value = false;
+
+    if (video.value) {
+      video.value.load();
+      video.value.oncanplaythrough = () => {
+        console.log("Video listo para reproducirse");
+        video.value?.play().catch(err => console.error("Error reproduciendo el video", err));
+      };
+    }
+
+    if (backgroundVideo.value) {
+      backgroundVideo.value.load();
+      backgroundVideo.value.oncanplaythrough = () => {
+        console.log("Background video listo para reproducirse");
+        backgroundVideo.value?.play().catch(err => console.error("Error reproduciendo el video de fondo", err));
+      };
+    }
+  }, 1500);
 }
+
 
 function openCloseModal(): void {
   isModalOpen.value = !isModalOpen.value
@@ -44,13 +58,23 @@ function setModal(type: string): void {
 
 onMounted(async () => {
   try {
-    const id = route.params.id
-  
-    await confirmationStore.postData(id as string)
+    const id = route.params.id;
+    
+    await confirmationStore.postData(id as string);
+
+    if (video.value) {
+      video.value.load();
+    }
+
+    if (backgroundVideo.value) {
+      backgroundVideo.value.load();
+    }
+
   } catch (error) {
-    console.error('error', error)
+    console.error("Error cargando datos", error);
   }
-})
+});
+
 </script>
 
 <template>
@@ -73,10 +97,10 @@ onMounted(async () => {
 
     <!-- VIDEO INVITATION -->
     <div v-if="!isLoading && invitationIsOpen" class="video-container">
-      <video autoplay muted playsinline @ended="onVideoEnd" class="video">
-        <source src="./assets/invitation.mp4" type="video/mp4" />
-        Tu navegador no soporta la etiqueta de video.
-      </video>
+        <video ref="video" autoplay muted playsinline preload="auto" @ended="onVideoEnd" class="video">
+          <source src="../../public/invitation.mp4" type="video/mp4" />
+          Tu navegador no soporta la etiqueta de video.
+        </video>
 
       <template v-if="!confirmationStore.user.asistencia.length">
         <h2 class="name">
@@ -113,9 +137,8 @@ onMounted(async () => {
 
     <!-- VIDEO SONG -->
     <div v-if="invitationIsOpen" class="hidden">
-      <video
-        id="background-video" autoplay loop playsinline ref="backgroundVideo">
-        <source src="./assets/cancion.mp4" type="video/mp4" />
+      <video ref="backgroundVideo" id="background-video" autoplay loop playsinline preload="auto">
+        <source src="../../public/cancion.mp4" type="video/mp4" />
       </video>
     </div>
 
