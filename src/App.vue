@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import Loader from './components/Loader.vue';
 
 const isLoading = ref(false)
 const video = ref<HTMLVideoElement | null>(null);
 const backgroundVideo = ref<HTMLVideoElement | null>(null);
 const invitationIsOpen = ref(false)
+const name = 'Luis'
+const lastname = 'Reyes'
+const admission = 2 
 
 const onVideoEnd = () => {
   if (video.value) {
@@ -25,42 +28,63 @@ function playMusic() {
     video.value.play();
   }
 }
-
-onMounted(() => {
-});
-
 </script>
 
 <template>
   <div class="app-container">
-    <button v-if="!invitationIsOpen" @click="playMusic">
-      Ver invitacion
-    </button>
+    <div v-if="!invitationIsOpen" class="invitation-title">
+      <h2 class="name">
+        {{ name }} {{ lastname }}
+      </h2>
+
+      <h1 class="title">
+        Nos hace mucha ilusión invitarte a nuestra boda
+      </h1>
+
+      <button @click="playMusic" class="button">
+        Abrir invitación
+      </button>
+    </div>
+
     <Loader :isLoading="isLoading && invitationIsOpen"></Loader>
-  
+
     <!-- VIDEO INVITATION -->
     <div v-if="!isLoading && invitationIsOpen" class="video-container">
       <video autoplay muted playsinline @ended="onVideoEnd" class="video">
         <source src="./assets/invitation.mp4" type="video/mp4" />
         Tu navegador no soporta la etiqueta de video.
       </video>
+
+      <h2 class="name">
+        {{ name }} {{ lastname }}
+      </h2>
+      <p class="name">
+        Tienes
+        <span class="admission">
+          {{ admission }}
+        </span>
+        admisión/es
+      </p>
+      <div class="action-buttons">
+        <button @click="confirm" class="button">
+          Confirmar
+        </button>
+        <button @click="decline" class="button-2">
+          Declinar
+        </button>
+      </div>
+    </div>
+
+    <!-- VIDEO SONG -->
+    <div v-if="invitationIsOpen" class="hidden">
+      <video
+        id="background-video" autoplay loop playsinline ref="backgroundVideo">
+        <source src="./assets/cancion.mp4" type="video/mp4" />
+      </video>
     </div>
   </div>
-
-  <!-- VIDEO SONG -->
-  <div
-    v-if="!isLoading && invitationIsOpen"
-    class="hidden">
-    <video
-      id="background-video"
-      autoplay
-      loop
-      playsinline
-      ref="backgroundVideo">
-      <source src="./assets/cancion.mp4" type="video/mp4">
-    </video>
-  </div>
 </template>
+
 
 <style scoped>
 .app-container {
@@ -69,13 +93,63 @@ onMounted(() => {
   margin: auto 0;
   padding: 0;
   box-sizing: border-box;
+  display: flex;
+  gap: 24px;
+}
+
+.invitation-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+}
+
+.name {
+  font-weight: 400;
+  font-family: "Yellowtail", serif;
+  color: #2A1F2D;
+  margin: 0;
+}
+
+.title {
+  color: #656c52;
+  font-size: 3rem;
+  font-weight: 400;
+  margin: 0;
+  font-family: "Yellowtail", serif;
+}
+
+.button {
+  background-color: #656c52;
+  padding: 24px 56px;
+  border-color: none;
+}
+
+.button-2 {
+  border: 1px solid #656c52;
+  color: #656c52;
+  background: transparent;
+  padding: 24px 56px;
+  border-color: none;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  justify-content: space-around;
 }
 
 .video-container {
-  position: fixed;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 100%;
+  padding-bottom: 24px;
+  min-width: 320px;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   opacity: 0;
   animation: fadeIn 1s linear forwards;
 }
@@ -85,6 +159,14 @@ onMounted(() => {
   -webkit-box-shadow: 4px 4px 8px -8px rgba(0,0,0,0.75);
   -moz-box-shadow: 4px 4px 8px -8px rgba(0,0,0,0.75);
   box-shadow: 4px 4px 8px -8px rgba(0,0,0,0.75);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.admission {
+  font-size: 2rem;
+  font-family: "Yellowtail", serif;
 }
 
 .hidden {
