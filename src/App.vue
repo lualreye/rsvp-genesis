@@ -28,6 +28,14 @@ function playMusic() {
     video.value.play();
   }
 }
+
+function confirm() {
+
+}
+
+function decline() {
+
+}
 </script>
 
 <template>
@@ -110,11 +118,12 @@ function playMusic() {
   font-family: "Yellowtail", serif;
   color: #2A1F2D;
   margin: 0;
+  font-size: 2.5rem;
 }
 
 .title {
   color: #656c52;
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 400;
   margin: 0;
   font-family: "Yellowtail", serif;
@@ -143,7 +152,7 @@ function playMusic() {
 
 .video-container {
   width: 100%;
-  padding-bottom: 24px;
+  padding-bottom: 48px;
   min-width: 320px;
   max-width: 640px;
   display: flex;
@@ -165,7 +174,8 @@ function playMusic() {
 }
 
 .admission {
-  font-size: 2rem;
+  font-size: 3rem;
+  color: #656c52;
   font-family: "Yellowtail", serif;
 }
 
