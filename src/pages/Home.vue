@@ -159,6 +159,7 @@ onMounted(async () => {
   padding: 0;
   box-sizing: border-box;
   display: flex;
+  justify-content: center;
   gap: 24px;
 }
 
@@ -207,6 +208,7 @@ onMounted(async () => {
   gap: 12px;
   width: 100%;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .video-container {

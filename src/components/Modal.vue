@@ -128,7 +128,8 @@ function close() {
 .action-buttons {
   display: flex;
   gap: 12px;
-  justify-content: flex-end;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .button {
