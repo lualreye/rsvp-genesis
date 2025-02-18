@@ -191,6 +191,7 @@ onMounted(async () => {
   background-color: #656c52;
   padding: 24px 56px;
   border-color: none;
+  color: #f6f2e5;
 }
 
 .button-2 {
