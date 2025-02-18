@@ -142,6 +142,13 @@ onMounted(async () => {
       </video>
     </div>
 
+    <footer class="footer">
+      <a href="https://api.whatsapp.com/send?phone=593960952970&text=Vengo%20de%20la%20invitaci%C3%B3n%20de%20Christopher%20y%20Genesis%20" about="_blank">
+        Con mucho 💜 creado por
+        <img src="../../public/bakanofull.png" alt="bakano agency" class="logo">
+      </a>
+    </footer>
+
     <!-- MODAL -->
      <Modal
       :isOpen="isModalOpen"
@@ -245,6 +252,22 @@ onMounted(async () => {
   height: 1px;
   overflow: hidden;
   position: absolute;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  color: black;
+  font-weight: 600;
+}
+
+.footer .logo {
+  width: 52px;
+  object-fit: center;
+  object-position: center;
 }
 
 @keyframes fadeIn {
