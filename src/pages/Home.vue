@@ -212,7 +212,7 @@ onMounted(async () => {
 .video-container {
   width: 100%;
   padding-bottom: 48px;
-  min-width: 280px;
+  min-width: 250px;
   max-width: 640px;
   display: flex;
   flex-direction: column;
